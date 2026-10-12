@@ -14,6 +14,7 @@ class InputAspirasi extends Model
         'id_kategori',
         'lokasi',
         'ket',
+        'foto',
     ];
 
     public function siswa()

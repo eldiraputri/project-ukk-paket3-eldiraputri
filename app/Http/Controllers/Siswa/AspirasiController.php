@@ -31,15 +31,22 @@ class AspirasiController extends Controller
             'id_kategori' => 'required|exists:kategoris,id_kategori',
             'lokasi' => 'required|string|max:50',
             'ket' => 'required|string|max:50',
+            'foto' => 'nullable|image|max:2048',
         ]);
 
         $siswa = Auth::guard('siswa')->user();
+
+        $fotoPath = null;
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('bukti-aspirasi', 'public');
+        }
 
         $input = InputAspirasi::create([
             'nis' => $siswa->nis,
             'id_kategori' => $validated['id_kategori'],
             'lokasi' => $validated['lokasi'],
             'ket' => $validated['ket'],
+            'foto' => $fotoPath,
         ]);
 
         Aspirasi::create([

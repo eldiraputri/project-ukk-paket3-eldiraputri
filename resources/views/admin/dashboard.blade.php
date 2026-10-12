@@ -26,6 +26,7 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
                         <tr>
+                            <th>Foto</th>
                             <th>Siswa</th>
                             <th>Kategori</th>
                             <th>Lokasi</th>
@@ -40,6 +41,15 @@
                                 $warna = ['Menunggu' => 'secondary', 'Proses' => 'warning', 'Selesai' => 'success'][$aspirasi->status] ?? 'secondary';
                             @endphp
                             <tr>
+                                <td>
+                                    @if ($aspirasi->input->foto)
+                                        <a href="{{ asset('storage/' . $aspirasi->input->foto) }}" target="_blank">
+                                            <img src="{{ asset('storage/' . $aspirasi->input->foto) }}" style="width:50px; height:50px; object-fit:cover; border-radius:6px;">
+                                        </a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>{{ $aspirasi->input->siswa->nis }}<br><small class="text-muted">{{ $aspirasi->input->siswa->kelas }}</small></td>
                                 <td>{{ $aspirasi->kategori->ket_kategori }}</td>
                                 <td>{{ $aspirasi->input->lokasi }}</td>
@@ -61,7 +71,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">Belum ada aspirasi masuk.</td>
+                                <td colspan="7" class="text-center text-muted py-4">Belum ada aspirasi masuk.</td>
                             </tr>
                         @endforelse
                     </tbody>
